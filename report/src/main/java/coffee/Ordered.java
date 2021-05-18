@@ -5,7 +5,6 @@ public class Ordered extends AbstractEvent {
     private Long id;
     private Long customerId;
     private Long productId;
-    private Integer orderQty;
     private String status;
     private Integer waitingNumber;
 
@@ -30,13 +29,7 @@ public class Ordered extends AbstractEvent {
     public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public Integer getOrderQty() {
-        return orderQty;
-    }
 
-    public void setOrderQty(Integer orderQty) {
-        this.orderQty = orderQty;
-    }
     public String getStatus() {
         return status;
     }

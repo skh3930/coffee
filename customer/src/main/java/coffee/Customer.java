@@ -20,7 +20,6 @@ public class Customer {
         BeanUtils.copyProperties(this, registeredCustomer);
         registeredCustomer.publishAfterCommit();
 
-
     }
 
     @PreUpdate
@@ -28,7 +27,6 @@ public class Customer {
         ModifiedPoint modifiedPoint = new ModifiedPoint();
         BeanUtils.copyProperties(this, modifiedPoint);
         modifiedPoint.publishAfterCommit();
-
 
     }
 

@@ -3,9 +3,8 @@ package coffee;
 public class Ordered extends AbstractEvent {
 
     private Long id;
-    private Integer customerId;
-    private Integer productId;
-    private Integer orderQty;
+    private Long customerId;
+    private Long productId;
     private String status;
     private Integer waitingNumber;
 
@@ -16,27 +15,21 @@ public class Ordered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public Integer getOrderQty() {
-        return orderQty;
-    }
-
-    public void setOrderQty(Integer orderQty) {
-        this.orderQty = orderQty;
-    }
+    
     public String getStatus() {
         return status;
     }

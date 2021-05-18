@@ -14,7 +14,6 @@ public class OrderList {
         private Long customerId;
         private Long productId;
         private Long deliveryId;
-        private Integer orderQty;
         private String status;
 
 
@@ -53,13 +52,7 @@ public class OrderList {
         public void setDeliveryId(Long deliveryId) {
             this.deliveryId = deliveryId;
         }
-        public Integer getOrderQty() {
-            return orderQty;
-        }
 
-        public void setOrderQty(Integer orderQty) {
-            this.orderQty = orderQty;
-        }
         public String getStatus() {
             return status;
         }

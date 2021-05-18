@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product
+  namespace: coffee
   labels:
     app: product
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: username/product:latest
+          image: 535015453674.dkr.ecr.ap-northeast-2.amazonaws.com/product:latest
           ports:
             - containerPort: 8080
           readinessProbe:

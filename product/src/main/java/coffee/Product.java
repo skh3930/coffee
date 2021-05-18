@@ -12,6 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    private Integer price;
     private String productStatus;
 
     @PostPersist
@@ -40,6 +41,15 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public String getProductStatus() {
         return productStatus;
     }

@@ -28,7 +28,6 @@ public class OrderListViewHandler {
                 orderList.setOrderId(ordered.getId());
                 orderList.setCustomerId(ordered.getCustomerId());
                 orderList.setProductId(ordered.getProductId());
-                orderList.setOrderQty(ordered.getOrderQty());
                 // view 레파지 토리에 save
                 orderListRepository.save(orderList);
             }
@@ -90,5 +89,22 @@ public class OrderListViewHandler {
             e.printStackTrace();
         }
     }
-
+    @StreamListener(KafkaProcessor.INPUT)
+    public void whenStatusUpdated_then_UPDATE_4(@Payload StatusUpdated statusUpdated) {
+        try {
+            if (statusUpdated.isMe()) {
+                // view 객체 조회
+                List<OrderList> orderListList = orderListRepository.findByOrderId(statusUpdated.getOrderId());
+                for(OrderList orderList : orderListList){
+                    // view 객체에 이벤트의 eventDirectValue 를 set 함
+                    orderList.setDeliveryId(statusUpdated.getId());
+                    orderList.setStatus(statusUpdated.getStatus());
+                    // view 레파지 토리에 save
+                    orderListRepository.save(orderList);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

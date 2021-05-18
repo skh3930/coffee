@@ -19,19 +19,17 @@ public class Delivery {
     @PostPersist
     public void onPostPersist(){
         OrderWaited orderWaited = new OrderWaited();
-        BeanUtils.copyProperties(this, orderWaited);
+        BeanUtils.copyProperties(this, orderWaited);       
         orderWaited.publishAfterCommit();
+        
+    }
 
+    @PostUpdate
+    public void onPostUpdate(){
 
-        DeliveryCompleted deliveryCompleted = new DeliveryCompleted();
-        BeanUtils.copyProperties(this, deliveryCompleted);
-        deliveryCompleted.publishAfterCommit();
-
-
-        OrderReceived orderReceived = new OrderReceived();
-        BeanUtils.copyProperties(this, orderReceived);
-        orderReceived.publishAfterCommit();
-
+        StatusUpdated statusUpdated = new StatusUpdated();
+        BeanUtils.copyProperties(this, statusUpdated);
+        statusUpdated.publishAfterCommit();
 
     }
 

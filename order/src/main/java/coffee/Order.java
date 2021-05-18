@@ -14,28 +14,29 @@ public class Order {
     private Long id;
     private Long customerId;
     private Long productId;
-    private Integer orderQty;
     private String status;
     private Integer waitingNumber;
 
     @PostPersist
-    public void onPostPersist(){
+    public void onPostPersist() throws Exception{
 
+// Edited Source
+        Integer price = OrderApplication.applicationContext.getBean(coffee.external.ProductService.class)
+        .checkProductStatus(this.getProductId());   
 
-        // coffee.external.Product product = new coffee.external.Product();
-        // mappings goes here
-        // OrderApplication.applicationContext.getBean(coffee.external.ProductService.class)
-        //     .checkProductStatus(this.getProductId());
+        if ( price > 0 ) {
+            boolean result = OrderApplication.applicationContext.getBean(coffee.external.CustomerService.class)
+            .checkAndModifyPoint(this.getCustomerId(), price) ;
 
-        Ordered ordered = new Ordered();
-        BeanUtils.copyProperties(this, ordered);
-        ordered.publishAfterCommit();
+                if (result) {
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+                    Ordered ordered = new Ordered();
+                    BeanUtils.copyProperties(this, ordered);
+                    ordered.publishAfterCommit();
 
-
-
+                } else 
+                    throw new Exception("Customer Point - Exception Raised");
+            } else throw new Exception("Product Sold Out - Exception Raised");
 
     }
 
@@ -61,13 +62,7 @@ public class Order {
     public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public Integer getOrderQty() {
-        return orderQty;
-    }
 
-    public void setOrderQty(Integer orderQty) {
-        this.orderQty = orderQty;
-    }
     public String getStatus() {
         return status;
     }
